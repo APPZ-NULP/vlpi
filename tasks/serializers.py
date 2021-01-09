@@ -35,6 +35,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "description",
             "difficulty",
             "type",
+            "module",
             "users_progress",
             "created_at",
             "updated_at",
