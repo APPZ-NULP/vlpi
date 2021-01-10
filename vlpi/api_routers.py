@@ -9,6 +9,7 @@ router = DefaultRouter()
 router.register("etalons", etalons_views.EtalonViewSet)
 router.register("modules", modules_views.StudyingModuleViewSet)
 router.register("tasks", tasks_views.TaskViewSet)
+router.register("tasks_progresses", tasks_views.UserTaskProgressViewSet)
 router.register("users", users_views.UserViewSet)
 
 urlpatterns = []

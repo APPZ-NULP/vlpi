@@ -1,11 +1,10 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Task
-from .serializers import TaskSerializer
+from .models import Task, UserTaskProgress
+from .serializers import TaskSerializer, UserTaskProgressSerializer
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -47,13 +46,15 @@ class TaskViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        result_mark = self.evaluate_result_mark(task.etalon, user_result, float(task.max_mark))
+        result_mark = self.evaluate_result_mark(
+            task.etalon, user_result, float(task.max_mark)
+        )
         task_progress.mark = result_mark
         task_progress.is_completed = True
         task_progress.save()
 
         return Response(status=status.HTTP_200_OK)
-    
+
     def evaluate_result_mark(self, etalon, result, max_mark):
         etalon_links = list(
             map(
@@ -83,6 +84,13 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         mark = max_mark * (1 - mistakes_procent)
         return mark
+
+
+class UserTaskProgressViewSet(viewsets.ModelViewSet):
+    queryset = UserTaskProgress.objects.all()
+    serializer_class = UserTaskProgressSerializer
+    lookup_field = "pk"
+
 
 # {
 #     "links": [
