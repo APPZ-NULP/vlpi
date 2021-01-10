@@ -25,7 +25,7 @@ class UserTaskProgressSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    users_progress = UserTaskProgressSerializer(many=True)
+    users_progress = UserTaskProgressSerializer(many=True, read_only=True)
 
     class Meta:
         model = Task

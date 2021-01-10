@@ -1,5 +1,13 @@
 version: '2'
 services:
+  db:
+    image: postgres:12
+    env_file: .env_variables
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
   api:
     build:
       context: .
@@ -11,12 +19,4 @@ services:
     volumes:
       - .:/project
     depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:12
-    env_file: .env_variables
-    ports:
-      - 5432:5432
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - db
