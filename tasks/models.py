@@ -41,12 +41,22 @@ class Task(models.Model):
         null=True,
         blank=True,
     )
+    max_mark = models.DecimalField(
+        max_digits=6, decimal_places=2, null=True, blank=True
+    )
     module = models.ForeignKey(
         "modules.StudyingModule",
         on_delete=models.CASCADE,
         related_name="tasks",
         null=True,
-        blank=True
+        blank=True,
+    )
+    etalon = models.ForeignKey(
+        "etalons.Etalon",
+        on_delete=models.CASCADE,
+        related_name="etalons",
+        null=True,
+        blank=True,
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -64,6 +74,7 @@ class UserTaskProgress(models.Model):
         Task, on_delete=models.CASCADE, related_name="users_progress"
     )
     is_completed = models.BooleanField(null=True, blank=True)
+    mark = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -20,7 +20,15 @@ class FilteredListSerializer(serializers.ListSerializer):
 class UserTaskProgressSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTaskProgress
-        fields = ["pk", "user", "task", "is_completed", "created_at", "updated_at"]
+        fields = [
+            "pk",
+            "user",
+            "task",
+            "is_completed",
+            "mark",
+            "created_at",
+            "updated_at",
+        ]
         list_serializer_class = FilteredListSerializer
 
 
@@ -35,7 +43,9 @@ class TaskSerializer(serializers.ModelSerializer):
             "description",
             "difficulty",
             "type",
+            "max_mark",
             "module",
+            "etalon",
             "users_progress",
             "created_at",
             "updated_at",
