@@ -73,7 +73,7 @@ class UserTaskProgress(models.Model):
     task = models.ForeignKey(
         Task, on_delete=models.CASCADE, related_name="users_progress"
     )
-    is_completed = models.BooleanField(null=True, blank=True)
+    is_completed = models.BooleanField(default=False)
     mark = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
