@@ -26,6 +26,8 @@ class UserTaskProgressSerializer(serializers.ModelSerializer):
             "task",
             "is_completed",
             "mark",
+            "nodes",
+            "links",
             "created_at",
             "updated_at",
         ]

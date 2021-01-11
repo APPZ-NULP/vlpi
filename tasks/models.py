@@ -76,6 +76,9 @@ class UserTaskProgress(models.Model):
     is_completed = models.BooleanField(default=False)
     mark = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
+    nodes = models.JSONField(null=True, blank=True)
+    links = models.JSONField(null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
