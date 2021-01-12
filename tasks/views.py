@@ -3,6 +3,7 @@ from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from .filters import TaskFilter
 from .models import Task, UserTaskProgress
 from .serializers import TaskSerializer, UserTaskProgressSerializer
 
@@ -11,6 +12,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     lookup_field = "pk"
+    filterset_class = TaskFilter
 
     @action(detail=True, methods=["post"])
     def complete(self, request, **kwargs):
@@ -51,6 +53,8 @@ class TaskViewSet(viewsets.ModelViewSet):
         )
         task_progress.mark = result_mark
         task_progress.is_completed = True
+        task_progress.nodes = user_result.get("nodes")
+        task_progress.links = user_result.get("links")
         task_progress.save()
 
         return Response(status=status.HTTP_200_OK)
